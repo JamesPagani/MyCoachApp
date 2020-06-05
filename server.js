@@ -1,33 +1,29 @@
 // Create the main entry point
 const express = require('express');
 const bodyParser = require('body-parser');
-const dbConfig = require('./config/database.config');
-const mongoose = require('mongoose');
+
+const morgan = require('morgan');
 
 const app = express();
+const { mongoose } = require('./config/database.config');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.set('port', 3000); //proces.env.PORT || 3000
+app.use(morgan('dev'));
 
-mongoose.Promise = global.Promise;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-mongoose.connect(dbConfig.url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to DB');
-}).catch(err => {
-  console.log('Problems with the DB connection', err);
-  process.exit();
-});
+/*let distDir = __dirname + "/dist/";
+app.use(express.static(distDir));*/
 
 app.get('/', (req, res) => {
+  console.log("Server on port:", app.get('port'));
   res.json({ message: 'API Rest MyCoach V1.0' });
 });
 
 // User routes
-require('./app/routes/user.routes')(app);
+app.use('/api/v1/', require('./app/routes/user.routes'));
 
-app.listen(3000, () => {
+app.listen(app.get('port'), () => {
   console.log('Server running');
 });

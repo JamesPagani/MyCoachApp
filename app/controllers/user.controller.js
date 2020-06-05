@@ -10,22 +10,14 @@ exports.create = (req, res) => {
     });
   } */
 
-  const user = new User({
-    id: uuid.v4(),
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    mobile_phone: req.body.mobile_phone,
-    comments: req.body.comments,
-    role: req.body.role,
-    customers: [req.body.customers],
-    measures: { age: req.body.age, weight: req.body.weight, height: req.body.height },
-    objectives: req.body.objectives,
-    parentId: req.body.parentId,
-    active: 1
+  const user = new User(req.body);
+
+  await user.save();
+  res.json({
+    'status': 'Emplayee Saved'
   });
 
-  user.save()
+  /*
     .then(data => {
       res.send(data);
     })
@@ -33,12 +25,14 @@ exports.create = (req, res) => {
       res.status(500).send({
         message: err.message || 'Some error occurred while creating the User'
       });
-    });
+    });*/
 };
 
 // Retrieve all the users
 exports.findAll = (req, res) => {
-  User.find()
+  const users = await User.find()
+  res.json(users);
+  /*
     .then(users => {
       res.send(users);
     })
@@ -46,7 +40,7 @@ exports.findAll = (req, res) => {
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving users'
       });
-    });
+    });*/
 };
 
 // Retrieve a user by id
@@ -73,30 +67,25 @@ exports.findOne = (req, res) => {
 };
 
 // Update a user by id
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   // Need validate the request data here!!
-
-  User.findOneAndUpdate(
-    {
-      id: req.params.userId
-    },
-    {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      mobile_phone: req.body.mobile_phone,
-      comments: req.body.comments,
-      role: req.body.role,
-      customers: [req.body.customers],
-      measures: { age: req.body.age, weight: req.body.weight, height: req.body.height },
-      objectives: req.body.objectives,
-      parentId: req.body.parentId,
-      active: req.body.active
-    },
-    {
-      new: true
-    }
-  )
+  const {id} = req.params;
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    mobile_phone: req.body.mobile_phone,
+    comments: req.body.comments,
+    role: req.body.role,
+    customers: [req.body.customers],
+    measures: { age: req.body.age, weight: req.body.weight, height: req.body.height },
+    objectives: req.body.objectives,
+    parentId: req.body.parentId,
+    active: req.body.active
+  }
+  await User.findByIdAndUpdate(id, { $set: user }, { new: true });
+  res.json({status: 'User Updated'});
+  /*
     .then(user => {
       if (!user) {
         return res.status(404).send({
@@ -114,13 +103,14 @@ exports.update = (req, res) => {
       return res.status(500).send({
         message: 'Error updating user with id ' + req.params.userId
       });
-    });
+    });*/
 };
 
 // Delete a user by id
-exports.delete = (req, res) => {
-  User.findByIdAndRemove(req.params.userId)
-    .then(note => {
+exports.delete = async (req, res) => {
+  await User.findByIdAndRemove(req.params.userId);
+  res.json({status: 'User Deleted'});
+    /*.then(note => {
       if (!note) {
         return res.status(404).send({
           message: 'User not found with id ' + req.params.userId
@@ -136,5 +126,5 @@ exports.delete = (req, res) => {
       return res.status(500).send({
         message: 'Could not delete note with id ' + req.params.userId
       });
-    });
+    });*/
 };
