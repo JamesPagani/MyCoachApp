@@ -18,4 +18,4 @@ router.put('/users/:id', users.update);
 // Delete a User with id
 router.delete('/users/:id', users.delete);
 
-module.exports = router
+module.exports = router;
