@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     height: Number},
   objectives: String,
   parentId: String,
-  active: Boolean
+  active: { type: String, required: true, default:1}
 }, {
   timestamps: true
 });

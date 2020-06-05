@@ -2,7 +2,7 @@ const User = require('../models/user.model');
 const uuid = require('uuid');
 
 // Create a new User
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   /* if (!req.body.name) {
     return res.status(400).send({
@@ -29,8 +29,8 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all the users
-exports.findAll = (req, res) => {
-  const users = await User.find()
+exports.findAll = async (req, res) => {
+  const users = await User.find();
   res.json(users);
   /*
     .then(users => {
@@ -44,12 +44,14 @@ exports.findAll = (req, res) => {
 };
 
 // Retrieve a user by id
-exports.findOne = (req, res) => {
-  User.findOne({ id: req.params.userId })
+exports.findOne = async (req, res) => {
+  const users = await User.findById( req.params.id);
+  res.json(users);
+  /*
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send(user);
@@ -57,13 +59,13 @@ exports.findOne = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Error retrieving user with id ' + req.params.userId
+        message: 'Error retrieving user with id ' + req.params.id
       });
-    });
+    });*/
 };
 
 // Update a user by id
@@ -108,7 +110,7 @@ exports.update = async (req, res) => {
 
 // Delete a user by id
 exports.delete = async (req, res) => {
-  await User.findByIdAndRemove(req.params.userId);
+  await User.findByIdAndRemove(req.params.id);
   res.json({status: 'User Deleted'});
     /*.then(note => {
       if (!note) {
