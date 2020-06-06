@@ -65,25 +65,13 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
   // Need validate the request data here!!
   const { id } = req.params;
-  const user = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    mobile_phone: req.body.mobile_phone,
-    comments: req.body.comments,
-    role: req.body.role,
-    customers: req.body.customers,
-    measures: req.body.measures,
-    objectives: req.body.objectives,
-    parentId: req.body.parentId,
-    active: req.body.active
-  };
+  const user = req.body;
   // res.json({status: 'User Updated'});
   await User.findByIdAndUpdate(id, { $set: user }, { new: true, omitUndefined: true })
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send(user);
@@ -91,11 +79,11 @@ exports.update = async (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Error updating user with id ' + req.params.userId
+        message: 'Error updating user with id ' + req.params.id
       });
     });
 };
@@ -106,18 +94,18 @@ exports.delete = async (req, res) => {
     .then(note => {
       if (!note) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send({ message: 'User deleted successfully' });
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Note not found with id ' + req.params.userId
+          message: 'Note not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Could not delete note with id ' + req.params.userId
+        message: 'Could not delete note with id ' + req.params.id
       });
     });
 };
