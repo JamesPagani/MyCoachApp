@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 // User routes
 app.use('/api/v1/', require('./app/routes/user.routes'));
 app.use('/api/v1/', require('./app/routes/routine.routes'));
+app.use('/api/v1/', require('./app/routes/exercise.routes'));
 
 app.listen(app.get('port'), () => {
   console.log('Server running on port: ', app.get('port'));
