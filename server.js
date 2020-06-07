@@ -6,7 +6,7 @@ const express = require('express');
 // const bodyParser = require('body-parser');
 
 const morgan = require('morgan');
-
+const cors = require('cors');
 const app = express();
 const { mongoose } = require('./config/database.config');
 
@@ -15,6 +15,7 @@ app.use(morgan('dev'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({origin: 'http://localhost:4200'}));
 
 /* let distDir = __dirname + "/dist/";
 app.use(express.static(distDir)); */
