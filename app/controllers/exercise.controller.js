@@ -10,14 +10,15 @@ exports.create = async (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-      message: err.mesage || 'Some error occured while creating the exercise'
+        message: err.mesage || 'Some error occured while creating the exercise'
+      });
     });
-  });
 };
 
 // Retrieve an exercise by ID
 exports.findOne = async (req, res) => {
   await Exercise.findById(req.params.id)
+    .populate({ path: 'coach', select: 'name -_id' })
     .then(exercise => {
       if (!exercise) {
         return res.status(404).send({
@@ -41,6 +42,8 @@ exports.findOne = async (req, res) => {
 // Retrieve all exercises
 exports.findAll = async (req, res) => {
   await Exercise.find()
+    .populate({ path: 'coach', select: 'name -_id' })
+    .select('name description coach quantity repetitions')
     .then(exercises => {
       res.send(exercises);
     })
@@ -52,12 +55,12 @@ exports.findAll = async (req, res) => {
 };
 
 // Update exercise by ID
-exports.update = async(req, res) => {
+exports.update = async (req, res) => {
   const { id } = req.params;
   const exercise = req.body;
-  //console.log(exercise)
+  // console.log(exercise)
 
-  await Exercise.findByIdAndUpdate(id, { $set: exercise }, { new: true, omitUndefined: true})
+  await Exercise.findByIdAndUpdate(id, { $set: exercise }, { new: true, omitUndefined: true })
     .then(exercise => {
       if (!exercise) {
         return res.status(404).send({
@@ -81,7 +84,7 @@ exports.update = async(req, res) => {
 // Delete an exercise by ID
 exports.delete = async (req, res) => {
   await Exercise.findByIdAndRemove(req.params.id)
-    .then(note => {
+    .then(exercise => {
       if (!exercise) {
         return res.status(404).send({
           message: 'Exercise not found with id ' + req.params.id
@@ -90,7 +93,7 @@ exports.delete = async (req, res) => {
       res.send({ message: 'Exercise deleted successfully' });
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-        return res.status(404).send ({
+        return res.status(404).send({
           message: 'Exercise not foudn with id ' + req.params.id
         });
       }

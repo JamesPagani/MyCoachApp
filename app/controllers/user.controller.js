@@ -91,8 +91,8 @@ exports.update = async (req, res) => {
 // Delete a user by id
 exports.delete = async (req, res) => {
   await User.findByIdAndRemove(req.params.id)
-    .then(note => {
-      if (!note) {
+    .then(user => {
+      if (!user) {
         return res.status(404).send({
           message: 'User not found with id ' + req.params.id
         });
@@ -101,11 +101,11 @@ exports.delete = async (req, res) => {
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Note not found with id ' + req.params.id
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Could not delete note with id ' + req.params.id
+        message: 'Could not delete user with id ' + req.params.id
       });
     });
 };

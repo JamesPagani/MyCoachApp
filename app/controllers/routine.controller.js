@@ -1,9 +1,7 @@
 const Routine = require('../models/routine.model');
 
 exports.create = async (req, res) => {
-
   const routine = new Routine(req.body);
-
   await routine.save()
     .then(data => {
       res.send(data);
@@ -17,8 +15,10 @@ exports.create = async (req, res) => {
 
 // Retrieve all the routines
 exports.findAll = async (req, res) => {
-
-  await Routine.find()
+  await Routine.find({ active: 1 })
+    .populate({ path: 'exercises', select: 'name description quantity repetitions -_id' })
+    .populate({ path: 'coach', select: 'name -_id' })
+    .select('name exercises coach days')
     .then(routines => {
       res.send(routines);
     })
@@ -31,8 +31,10 @@ exports.findAll = async (req, res) => {
 
 // Retrieve a routine by id
 exports.findOne = async (req, res) => {
-
   await Routine.findById(req.params.id)
+    .populate({ path: 'exercises', select: 'name description quantity repetitions -_id' })
+    .populate({ path: 'coach', select: 'name -_id' })
+    .select('name exercises coach days')
     .then(routine => {
       if (!routine) {
         return res.status(404).send({
@@ -55,11 +57,10 @@ exports.findOne = async (req, res) => {
 
 // Update a routine by id
 exports.update = async (req, res) => {
-
   const { id } = req.params;
   const routine = req.body;
   console.log(routine);
-  
+
   await Routine.findByIdAndUpdate(id, { $set: routine }, { new: true, omitUndefined: true })
     .then(routine => {
       if (!routine) {
@@ -83,10 +84,9 @@ exports.update = async (req, res) => {
 
 // Delete a routine by id
 exports.delete = async (req, res) => {
-  
   await Routine.findByIdAndRemove(req.params.id)
-    .then(note => {
-      if (!note) {
+    .then(routine => {
+      if (!routine) {
         return res.status(404).send({
           message: 'Routine not found with id ' + req.params.id
         });
@@ -95,11 +95,11 @@ exports.delete = async (req, res) => {
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Note not found with id ' + req.params.id
+          message: 'Routine not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Could not delete note with id ' + req.params.routineId
+        message: 'Could not delete routine with id ' + req.params.routineId
       });
     });
 };

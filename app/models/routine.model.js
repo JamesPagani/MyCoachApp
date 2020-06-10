@@ -1,11 +1,13 @@
-// User Model
+// Routine Model
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+
 const routineSchema = new Schema({
   name: { type: String, required: true },
-  exercise: [String],
-  coachId: { type: String, required: true},
-  active: { type: String, required: true, default: 1 },
+  exercises: [
+    { type: Schema.Types.ObjectId, ref: 'Exercise' }
+  ],
+  coach: { type: Schema.Types.ObjectId, ref: 'User' },
   days: {
     monday: Boolean,
     tuesday: Boolean,
@@ -15,7 +17,7 @@ const routineSchema = new Schema({
     saturday: Boolean,
     Sunday: Boolean
   },
-  trainees: [String]
+  active: { type: String, required: true, default: 1 }
 }, {
   timestamps: true
 });
