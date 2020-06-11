@@ -10,7 +10,7 @@ const exerciseSchema = new Schema({
   coach: { type: Schema.Types.ObjectId, ref: 'User' },
   active: { type: Boolean, required: true, default: 1 }
 }, {
-  timestams: true
+  timestamps: true
 });
 
 module.exports = mongoose.model('Exercise', exerciseSchema);

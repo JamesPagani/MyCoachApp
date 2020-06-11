@@ -12,6 +12,9 @@ router.get('/exercises', exercises.findAll);
 // Retrieve an exercise by ID
 router.get('/exercises/:id', exercises.findOne);
 
+// Retrieve an exercise by user id
+router.get('/exercises/users/:id', exercises.findByUser);
+
 //  Update an exercise with ID
 router.put('/exercises/:id', exercises.update);
 

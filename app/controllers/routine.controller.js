@@ -55,6 +55,35 @@ exports.findOne = async (req, res) => {
     });
 };
 
+/*
+  findByUser: method to retrieve routines by userId
+  Params: id (UserId String)
+*/
+exports.findByUser = async (req, res) => {
+  await Routine.find({ coach: req.params.id })
+    .populate({ path: 'exercises', select: 'name description quantity repetitions' })
+    .populate({ path: 'coach', select: 'name' })
+    .select('name exercises coach days active')
+    .then(routine => {
+      if (!routine) {
+        return res.status(404).send({
+          message: 'Routine not found with UserId ' + req.params.id
+        });
+      }
+      res.send(routine);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Routine not found with UserId ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving routine with UserId ' + req.params.id
+      });
+    });
+};
+
 // Update a routine by id
 exports.update = async (req, res) => {
   const { id } = req.params;

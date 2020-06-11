@@ -15,6 +15,21 @@ exports.create = async (req, res) => {
     });
 };
 
+// Retrieve all exercises
+exports.findAll = async (req, res) => {
+  await Exercise.find()
+    .populate({ path: 'coach', select: 'name' })
+    .select('name description coach quantity repetitions url active')
+    .then(exercises => {
+      res.send(exercises);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving exercises'
+      });
+    });
+};
+
 // Retrieve an exercise by ID
 exports.findOne = async (req, res) => {
   await Exercise.findById(req.params.id)
@@ -40,17 +55,31 @@ exports.findOne = async (req, res) => {
     });
 };
 
-// Retrieve all exercises
-exports.findAll = async (req, res) => {
-  await Exercise.find()
+/*
+  findByUser: method to retrieve exercises by userId
+  Params: id (UserId String)
+*/
+exports.findByUser = async (req, res) => {
+  console.log(req.params);
+  await Exercise.find({ coach: req.params.id })
     .populate({ path: 'coach', select: 'name' })
     .select('name description coach quantity repetitions url active')
-    .then(exercises => {
-      res.send(exercises);
+    .then(exercise => {
+      if (!exercise) {
+        return res.status(404).send({
+          message: 'Exercises not found with UserId ' + req.params.id
+        });
+      }
+      res.send(exercise);
     })
     .catch(err => {
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving exercises'
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Exercises not found with UserId ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving exercises with UserId ' + req.params.id
       });
     });
 };

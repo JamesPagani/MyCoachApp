@@ -12,6 +12,12 @@ router.get('/users', users.findAll);
 // Retrieve a User with id
 router.get('/users/:id', users.findOne);
 
+// Retrieve a Customers by Coach
+router.get('/users/:id/customers', users.findCustomers);
+
+// Retrieve a Routines by Customer
+router.get('/users/:id/routines', users.findRoutinesByCustomer);
+
 // Update a User with id
 router.put('/users/:id', users.update);
 

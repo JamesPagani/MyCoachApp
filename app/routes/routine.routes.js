@@ -12,6 +12,9 @@ router.get('/routines', routines.findAll);
 // Retrieve a Routine with id
 router.get('/routines/:id', routines.findOne);
 
+// Retrieve a Routine by UserId
+router.get('/routines/users/:id', routines.findByUser);
+
 // Update a Routine with id
 router.put('/routines/:id', routines.update);
 

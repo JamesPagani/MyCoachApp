@@ -69,6 +69,70 @@ exports.findOne = async (req, res) => {
     });
 };
 
+/*
+  findCustomers: method to retrieve customer by coach
+  Params: id (UserId String)
+*/
+exports.findCustomers = async (req, res) => {
+  await User.find({ parentId: req.params.id })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v -customers ')
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'Customers not found with id ' + req.params.id
+        });
+      }
+      res.send(user);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Customers not found with id ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving customers with id ' + req.params.id
+      });
+    });
+};
+
+/*
+  findRoutinesByCustomer: method to retrieve customer by coach
+  Params: id (UserId String)
+*/
+exports.findRoutinesByCustomer = async (req, res) => {
+  await User.findById(req.params.id)
+    .populate({
+      path: 'routines',
+      select: '-createdAt -updatedAt -__v -coach',
+      populate: {
+        path: 'exercises',
+        select: '-__v -coach'
+      }
+    })
+    .select('routines -_id')
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'Routines not found with UserId ' + req.params.id
+        });
+      }
+      res.send(user.routines);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Routines not found with UserId ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving routines with UserId ' + req.params.id
+      });
+    });
+};
+
 // Update a user by id
 exports.update = async (req, res) => {
   // Need validate the request data here!!
