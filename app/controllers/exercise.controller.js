@@ -18,7 +18,8 @@ exports.create = async (req, res) => {
 // Retrieve an exercise by ID
 exports.findOne = async (req, res) => {
   await Exercise.findById(req.params.id)
-    .populate({ path: 'coach', select: 'name -_id' })
+    .populate({ path: 'coach', select: 'name' })
+    .select('name description coach quantity repetitions url active')
     .then(exercise => {
       if (!exercise) {
         return res.status(404).send({
@@ -42,8 +43,8 @@ exports.findOne = async (req, res) => {
 // Retrieve all exercises
 exports.findAll = async (req, res) => {
   await Exercise.find()
-    .populate({ path: 'coach', select: 'name -_id' })
-    .select('name description coach quantity repetitions')
+    .populate({ path: 'coach', select: 'name' })
+    .select('name description coach quantity repetitions url active')
     .then(exercises => {
       res.send(exercises);
     })

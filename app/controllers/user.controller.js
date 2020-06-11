@@ -28,6 +28,10 @@ exports.create = async (req, res) => {
 // Retrieve all the users
 exports.findAll = async (req, res) => {
   await User.find()
+    .populate({ path: 'customers', select: 'name' })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v')
     .then(users => {
       res.send(users);
     })
@@ -41,6 +45,10 @@ exports.findAll = async (req, res) => {
 // Retrieve a user by id
 exports.findOne = async (req, res) => {
   await User.findById(req.params.id)
+    .populate({ path: 'customers', select: 'name' })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v')
     .then(user => {
       if (!user) {
         return res.status(404).send({

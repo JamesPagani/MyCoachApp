@@ -15,10 +15,10 @@ exports.create = async (req, res) => {
 
 // Retrieve all the routines
 exports.findAll = async (req, res) => {
-  await Routine.find({ active: 1 })
-    .populate({ path: 'exercises', select: 'name description quantity repetitions -_id' })
-    .populate({ path: 'coach', select: 'name -_id' })
-    .select('name exercises coach days')
+  await Routine.find()
+    .populate({ path: 'exercises', select: 'name description quantity repetitions' })
+    .populate({ path: 'coach', select: 'name' })
+    .select('name exercises coach days active')
     .then(routines => {
       res.send(routines);
     })
@@ -32,9 +32,9 @@ exports.findAll = async (req, res) => {
 // Retrieve a routine by id
 exports.findOne = async (req, res) => {
   await Routine.findById(req.params.id)
-    .populate({ path: 'exercises', select: 'name description quantity repetitions -_id' })
-    .populate({ path: 'coach', select: 'name -_id' })
-    .select('name exercises coach days')
+    .populate({ path: 'exercises', select: 'name description quantity repetitions' })
+    .populate({ path: 'coach', select: 'name' })
+    .select('name exercises coach days active')
     .then(routine => {
       if (!routine) {
         return res.status(404).send({

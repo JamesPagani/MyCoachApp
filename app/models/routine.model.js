@@ -15,9 +15,9 @@ const routineSchema = new Schema({
     thursday: Boolean,
     friday: Boolean,
     saturday: Boolean,
-    Sunday: Boolean
+    sunday: Boolean
   },
-  active: { type: String, required: true, default: 1 }
+  active: { type: Boolean, required: true, default: 1 }
 }, {
   timestamps: true
 });
