@@ -20,8 +20,7 @@ export class RoutinesComponent implements OnInit {
   constructor(public routineService:RoutineService) {
     this.form1 = new FormGroup ({
       'name': new FormControl('', Validators.required),
-      'exercise': new FormControl(''),
-      'coachId': new FormControl('', Validators.required),
+      'coach': new FormControl('', Validators.required),
       'active': new FormControl(false, Validators.required),
       'days': new FormGroup({
         'monday': new FormControl(false),
@@ -35,9 +34,9 @@ export class RoutinesComponent implements OnInit {
     });
     this.getRoutines();
     /*
-    In case ngmodel is deprecated use this example
-    this.form1.get("name").valueChanges.subscribe(x => {
-      this.routineService.selectedRoutine.name = x;
+    In case ngmodel is deprecated use this example*/
+    /*this.form1.get("coach").valueChanges.subscribe(x => {
+      this.routineService.selectedRoutine.coach = x;
       console.log(this.routineService.selectedRoutine);
     });*/
    }
@@ -47,8 +46,6 @@ export class RoutinesComponent implements OnInit {
       $('select').formSelect();
     });
   }
-
- 
 
   // Create new Routine
   createRoutine(form?:FormGroup){
@@ -88,7 +85,14 @@ export class RoutinesComponent implements OnInit {
   // get all Routines
   getRoutines(){
     this.routineService.getRoutines().subscribe(res =>{
-      this.routineService.routines = res as Routine[];
+      let r = res as Routine[];
+      r.map( (x:any)=>{ 
+        if( x.coach?._id != undefined){
+          x.coach =  x.coach._id
+        }
+        return x
+     });
+      this.routineService.routines = r as Routine[];
     });
   }
 
@@ -99,14 +103,21 @@ export class RoutinesComponent implements OnInit {
     if (form){
       form.reset();
     }
+    this.refreshSelects();
     this.editmode = false;
+    this.getRoutines();
+   
   }
 
   editRoutine(routine:Routine){
     this.routineService.selectedRoutine = routine;
     this.editmode = true;
 
-    //manual fix of selects
+    this.refreshSelects();
+  }
+
+  //manual fix of selects
+  refreshSelects(){
     $("#myActSelect").val(this.routineService.selectedRoutine.active);
     $('select').formSelect()
     setTimeout(() => 
@@ -114,7 +125,6 @@ export class RoutinesComponent implements OnInit {
       $('select').formSelect();
     },
     10);
-    
   }
 
   //delete one Routine by document id

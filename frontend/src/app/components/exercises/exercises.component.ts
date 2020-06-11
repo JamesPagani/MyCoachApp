@@ -64,7 +64,6 @@ export class ExercisesComponent implements OnInit {
       if (this.exerciseService.selectedExercise._id != ''
       && this.exerciseService.selectedExercise._id != undefined){
         form.value._id = this.exerciseService.selectedExercise._id;
-        form.value.__v = this.exerciseService.selectedExercise.__v;
         form.value.active = form.value.active == 'true' ||  form.value.active === true ? true : false;
         this.exerciseService.putExercise(form.value).subscribe(res =>{
           M.toast({html: 'Update Successfuly'});
@@ -92,14 +91,19 @@ export class ExercisesComponent implements OnInit {
     if (form){
       form.reset();
     }
+    this.refreshSelects();
     this.editmode = false;
+    this.getExercises();
   }
 
   editExercise(exercise:Exercise){
     this.exerciseService.selectedExercise = exercise;
     this.editmode = true;
+    this.refreshSelects();
+  }
 
-    //manual fix of selects
+  //manual fix of selects
+  refreshSelects(){
     $("#myActSelect").val(this.exerciseService.selectedExercise.active);
     $('select').formSelect()
     setTimeout(() => 
@@ -107,7 +111,6 @@ export class ExercisesComponent implements OnInit {
       $('select').formSelect();
     },
     10);
-    
   }
 
   //delete one Exercise by document id

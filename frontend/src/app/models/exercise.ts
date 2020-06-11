@@ -3,7 +3,7 @@ export class Exercise {
 		_id = '', name = '',
 		description = '', quantity= 1,
 		repetitions = 1, url = '',
-		active = true
+		coach = '', active = true
 		){
 			this._id =_id;
 			this.name = name;
@@ -11,6 +11,7 @@ export class Exercise {
 			this.quantity = quantity;
 			this.repetitions = repetitions;
 			this.url = url;
+			this.coach = coach;
 			this.active = active;
 		}
 		_id:string;
@@ -18,7 +19,7 @@ export class Exercise {
 		description?: string;
 		quantity:number;
 		repetitions:number;
-		url:string;
+		url?:string;
+		coach:string;
 		active:boolean;
-		__v: number;
 }

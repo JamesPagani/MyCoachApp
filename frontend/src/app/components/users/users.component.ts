@@ -29,10 +29,15 @@ export class UsersComponent implements OnInit {
 
   // Create new User
   createUser(form?:NgForm){
+    console.log(form.value);
     if (form.valid == true){
       if (this.userService.selectedUser._id == ''
       || this.userService.selectedUser._id == undefined){
-        form.value.active = form.value.active == 'true' ? true : false;
+        console.log("antes", form.value.active);
+        form.value.active = form.value.active == 'true' || form.value.active == true ? true : false;
+        form.value.parentId == '' ? delete form.value.parentId : form.value.parentId;
+        form.value.mobile_phone == '' ? delete form.value.mobile_phone : form.value.mobile_phone;
+        console.log("despues", form.value.active);
         this.userService.postUser(form.value).subscribe(res => {
           M.toast({html: 'Save Successfuly'});
           this.resetForm(form);
@@ -48,7 +53,6 @@ export class UsersComponent implements OnInit {
       if (this.userService.selectedUser._id != ''
       && this.userService.selectedUser._id != undefined){
         form.value._id = this.userService.selectedUser._id;
-        form.value.__v = this.userService.selectedUser.__v;
         form.value.active = form.value.active == 'true' ? true : false;
         this.userService.putUser(form.value).subscribe(res =>{
           M.toast({html: 'Update Successfuly'});
@@ -65,7 +69,14 @@ export class UsersComponent implements OnInit {
   // get all Users
   getUsers(){
     this.userService.getUsers().subscribe(res =>{
-      this.userService.users = res as User[];
+      let r = res as User[];
+      r.map( (x:any)=>{ 
+        if( x.parentId?._id != undefined){
+          x.parentId =  x.parentId._id
+        }
+        return x;
+     });
+      this.userService.users = r as User[];
     });
   }
 
@@ -76,13 +87,19 @@ export class UsersComponent implements OnInit {
     if (form){
       form.reset();
     }
+    this.refreshSelects();
     this.editmode = false;
+    this.getUsers();
   }
 
   editUser(user:User){
     this.userService.selectedUser = user;
     this.editmode = true;
 
+    this.refreshSelects();
+  }
+
+  refreshSelects(){
     //manual fix of selects
     $("#myrolselect").val(this.userService.selectedUser.role);
     $("#myActSelect").val(this.userService.selectedUser.active);
@@ -92,7 +109,6 @@ export class UsersComponent implements OnInit {
       $('select').formSelect();
     },
     10);
-    
   }
 
   //delete one User by document id

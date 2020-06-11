@@ -1,7 +1,7 @@
 export class Routine {
 	constructor(
 		_id = '', name = '',
-		exercise = [], coachId='',
+		exercises = [], coach='',
 		active = true, days = { 
 			monday: false,
 			tuesday: false,
@@ -13,15 +13,15 @@ export class Routine {
 		){
 			this._id =_id;
 			this.name = name;
-			this.exercise = exercise;
-			this.coachId = coachId;
+			this.exercises = exercises;
+			this.coach = coach;
 			this.active = active;
 			this.days = days;
 		}
 		_id:string;
 		name: string;
-		exercise?: string[];
-		coachId: string;
+		exercises?: string[];
+		coach: string;
 		active: boolean;
 		days: {
 			monday: boolean,

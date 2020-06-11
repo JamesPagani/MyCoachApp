@@ -4,8 +4,9 @@ export class User {
 	_id = '', name = '', email='',
 	password = '', mobile_phone = '', comments = '',
 	role = '', customers = [],
-	measures = { age : 0, weight : 0, height : 0},	
-	objectives = '', parentId = '', active = true
+	measures = { age : 0, weight : 0, height : 0},
+	objectives = '', parentId = '', routines = [],
+	active = true
 	){
 		this._id =_id;
 		this.name = name;
@@ -17,8 +18,9 @@ export class User {
 		this.customers = customers;
 		this.measures = measures;
 		this.objectives = objectives;
+		this.routines = routines;
 		this.parentId = parentId;
-		this.active = active
+		this.active = active;
 	}
 	_id:string;
 	name: string;
@@ -34,7 +36,7 @@ export class User {
 	height: number
 	};	
 	objectives?: string;
+	routines: string[];
 	parentId?: string;
 	active: boolean;
-	__v: number;
 }

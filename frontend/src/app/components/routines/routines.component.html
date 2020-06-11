@@ -15,14 +15,8 @@
 								 >
 							</div>
 							<div class="input-field col s12">
-								<input type="text" formControlName="exercise"
-								 [(ngModel)]="routineService.selectedRoutine.exercise"
-								 placeholder="Exercises"
-								 >
-							</div>
-							<div class="input-field col s12">
-								<input type="text" formControlName="coachId"
-								 [(ngModel)]="routineService.selectedRoutine.coachId"
+								<input type="text" formControlName="coach"
+								 [(ngModel)]="routineService.selectedRoutine.coach"
 								 placeholder="Coach ID*"
 								 >
 							</div>
@@ -135,7 +129,7 @@
 				<tbody>
 					<tr *ngFor="let routine of routineService.routines">
 						<td>{{ routine.name }}</td>
-						<td>{{ routine.coachId }}</td>
+						<td>{{ routine.coach }}</td>
 						<td>{{ routine.active }}</td>
 						<td>
 							<a (click) ="editRoutine(routine)">

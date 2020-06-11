@@ -8,10 +8,13 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let routine of routineService.routines" >
-				 <td>{{ routine.name }}</td>
+				 <td>{{ routine.name | titlecase}}</td>
 				<!-- <td>{{ routine.exercise }}</td> -->
 				<td>
-					<a [routerLink] ="['/exercise-detail', '5ee089fa523497295c63ef20']" >  hola </a>
+					<a *ngFor="let exercise of routine.exercises"
+					[routerLink] ="['/exercise-detail', exercise?._id]" >
+						{{ exercise?.name}} |
+					</a>
 				</td>
 				<td>
 					<table class="responsive-table">
