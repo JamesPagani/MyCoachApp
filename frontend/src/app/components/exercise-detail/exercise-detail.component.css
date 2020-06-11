@@ -1,0 +1,8 @@
+.flow-text{
+	margin: 0px;
+	margin-left: 10px;
+}
+.divFlex{
+	display: flex;
+	justify-content: center;
+}

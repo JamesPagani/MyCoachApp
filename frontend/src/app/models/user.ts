@@ -16,9 +16,9 @@ export class User {
 		this.role = role;
 		this.customers = customers;
 		this.measures = measures;
-		objectives = '';
-		parentId = '';
-		active = true
+		this.objectives = objectives;
+		this.parentId = parentId;
+		this.active = active
 	}
 	_id:string;
 	name: string;

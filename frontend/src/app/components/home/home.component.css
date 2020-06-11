@@ -1,0 +1,12 @@
+img.homeimg{
+	position: absolute;
+	z-index: -1;
+	top:0;
+	left: 0;
+}
+
+@media only screen and (max-width: 1185px) {
+	img.homeimg {
+	 display: none;
+	}
+  }

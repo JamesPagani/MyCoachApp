@@ -1,0 +1,28 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
+<div class="col s7" *ngIf="routineService.routines">
+	<table class="responsive-table">
+		<thead>
+			<th>Name</th>
+			<th>Exercise</th>
+			<th>Days</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let routine of routineService.routines" >
+				 <td>{{ routine.name }}</td>
+				<!-- <td>{{ routine.exercise }}</td> -->
+				<td>
+					<a [routerLink] ="['/exercise-detail', '5ee089fa523497295c63ef20']" >  hola </a>
+				</td>
+				<td>
+					<table class="responsive-table">
+						<tr *ngFor="let day of routine.days | keyvalue">
+							<td *ngIf="day.value">
+								{{ day.key | titlecase}}
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

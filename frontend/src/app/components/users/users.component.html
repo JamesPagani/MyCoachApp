@@ -1,28 +1,30 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
 <div class="container">
 	<div class="row">
 		<div class="col s5">
 			<div class="card">
 				<div class="card-content">
+					<label for=""> {{userService.selectedUser._id}}</label>
 					<form #userForm="ngForm">
 						<div class="row">
 							<div class="input-field col s12">
 								<input type="text" name="name" ngModel
 								 [(ngModel)]="userService.selectedUser.name"
-								 placeholder="Enter your name*"
+								 placeholder="Name*"
 								 required
 								 >
 							</div>
 							<div class="input-field col s12">
 								<input type="email" name="email" #email="ngModel"
 								 [(ngModel)]="userService.selectedUser.email"
-								 placeholder="Enter your email*"
+								 placeholder="Email*"
 								 required
 								 >
 							</div>
 							<div class="input-field col s12">
 								<input type="password" name="password" #password="ngModel"
 								 [(ngModel)]="userService.selectedUser.password"
-								 placeholder="Enter your password*"
+								 placeholder="Password*"
 								 required
 								 >
 							</div>
@@ -49,6 +51,12 @@
 								  <option value="false">False</option>
 								</select>
 								<label>Active* {{userService.selectedUser.active}}</label>
+							</div>
+							<div class="input-field col s12">
+								<input type="text" name="parentId" ngModel
+								 [(ngModel)]="userService.selectedUser.parentId"
+								 placeholder="Coach ID"
+								 >
 							</div>
 							
 							<div class="card-action">
@@ -82,7 +90,7 @@
 			</div>
 		</div>
 		<div class="col s7">
-			<table>
+			<table class="responsive-table">
 				<thead>
 					<th>Name</th>
 					<th>Email</th>
@@ -100,7 +108,7 @@
 							<a (click) ="editUser(user)">
 								<i class="material-icons">edit</i>
 							</a>
-							<a (click) ="deleteUser(user._id)">
+							<a (click) ="deleteUser(user._id, userForm)">
 								<i class="material-icons icon-pink">delete</i>
 							</a>
 						</td>

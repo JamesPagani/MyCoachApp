@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service"; 
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
+
 declare var $:any;
 declare var M:any;
 
@@ -9,11 +10,12 @@ declare var M:any;
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [UserService]
+  providers: []
 })
 export class UsersComponent implements OnInit {
 
   public editmode: boolean = false;
+  public title:string = "Users";
 
   constructor(public userService:UserService) {
      this.getUsers();
@@ -94,11 +96,14 @@ export class UsersComponent implements OnInit {
   }
 
   //delete one User by document id
-  deleteUser(_id:string){
+  deleteUser(_id:string, form?:NgForm){
     if(confirm('Are you sure, that you want to delete it')){
       this.userService.deleteUser(_id).subscribe( res => {
-        M.toast({html: 'sorry, you must select an id'});
+        this.resetForm(form);
         this.getUsers();
+        M.toast({html: 'User deleted successfully'});
+      }, err =>{
+        M.toast({html: 'Error'});
       });
     }
   }
