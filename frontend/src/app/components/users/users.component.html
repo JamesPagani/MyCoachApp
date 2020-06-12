@@ -1,0 +1,121 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
+<div class="container">
+	<div class="row">
+		<div class="col s5">
+			<div class="card">
+				<div class="card-content">
+					<label for=""> {{userService.selectedUser._id}}</label>
+					<form #userForm="ngForm">
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" name="name" ngModel
+								 [(ngModel)]="userService.selectedUser.name"
+								 placeholder="Name*"
+								 required autofocus
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="email" name="email" #email="ngModel"
+								 [(ngModel)]="userService.selectedUser.email"
+								 placeholder="Email*"
+								 required
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="password" name="password" #password="ngModel"
+								 [(ngModel)]="userService.selectedUser.password"
+								 placeholder="Password*"
+								 required
+								 >
+							</div>
+							<div class="input-field col s12">
+								<select id ="myrolselect" name="role" ngModel
+								[(ngModel)]="userService.selectedUser.role"
+								(change)="eventChange()"
+								required
+								>
+								  <option value="" disabled selected>Choose your option</option>
+								  <option value="Coach">Coach</option>
+								  <option value="Trainee">Trainee</option>
+								</select>
+								<label>Role* {{userService.selectedUser.role}}</label>
+							</div>
+							<div class="input-field col s12 ">
+								<select id ="myActselect" name="active" #active="ngModel"
+								[(ngModel)]="userService.selectedUser.active"
+								(change)="eventChange()"
+								required
+								>
+								  <option value="" disabled selected>Choose your option</option>
+								  <option value="true">True</option>
+								  <option value="false">False</option>
+								</select>
+								<label>Active* {{userService.selectedUser.active}}</label>
+							</div>
+							<div class="input-field col s12">
+								<input type="text" name="parentId" ngModel
+								 [(ngModel)]="userService.selectedUser.parentId"
+								 placeholder="Coach ID"
+								 >
+							</div>
+							
+							<div class="card-action">
+								<div class="input-field col s12">
+									<button type="button" class="btn right" (click) = "resetForm(userForm)"
+									 *ngIf= "editmode == false"
+									>
+										Clean
+									</button>
+									<button type="button" class="btn right" (click) = "resetForm(userForm)"
+									 *ngIf= "editmode == true"
+									>
+										Cancel
+									</button>
+									<button type="button" type="" class="btn right amber" (click) = "createUser(userForm)"
+									 *ngIf= "editmode == false"
+									 style="margin-right: 2px;">
+										Create
+								   </button>
+								   <button type="button" type="" class="btn right"
+								     *ngIf= "editmode == true"
+								     (click) = "updateUser(userForm)"
+									 style="margin-right: 2px;">
+										Update
+								   </button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col s7">
+			<table class="responsive-table">
+				<thead>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Password</th>
+					<th>Role</th>
+					<th>Operations</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let user of userService.users">
+						<td>{{ user.name }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.password }}</td>
+						<td>{{ user.role }}</td>
+						<td>
+							<a (click) ="editUser(user)">
+								<i class="material-icons">edit</i>
+							</a>
+							<a (click) ="deleteUser(user._id, userForm)">
+								<i class="material-icons icon-pink">delete</i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+

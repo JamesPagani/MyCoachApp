@@ -1,0 +1,22 @@
+<nav>
+	<div class="nav-wrapper blue">
+	  <div class="container">
+	  <a [routerLink] ="['/home']" class="brand-logo">My Coach App</a>
+	  </div>
+	  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+	  <ul class="right hide-on-med-and-down">
+		<li><a [routerLink] ="['/login']">Login</a></li>
+		<li><a [routerLink] ="['/register']">Register</a></li>
+	  </ul>
+	</div>
+</nav>
+<div  class="title_page">
+	<div class="flow-text">{{ titlePage }}</div>
+</div>
+
+
+  
+<ul class="sidenav" id="mobile-demo">
+	<li><a [routerLink] ="['login']">Login</a></li>
+	<li><a [routerLink] ="['register']">Register</a></li>
+</ul>

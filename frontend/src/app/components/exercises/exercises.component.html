@@ -1,0 +1,110 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
+<div class="container">
+	<div class="row">
+		<div class="col s5">
+			<div class="card">
+				<div class="card-content">
+					<label for=""> {{exerciseService.selectedExercise._id}}</label>
+					<form [formGroup]="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" formControlName="name"	
+								 [(ngModel)]="exerciseService.selectedExercise.name"
+								 placeholder="Name*"
+								 autofocus
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="text" formControlName="description"
+								 [(ngModel)]="exerciseService.selectedExercise.description"
+								 placeholder="Description"
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="number" formControlName="quantity"
+								 [(ngModel)]="exerciseService.selectedExercise.quantity"
+								 placeholder="Quantity*"
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="number" formControlName="repetitions"
+								 [(ngModel)]="exerciseService.selectedExercise.repetitions"
+								 placeholder="Repetitions*"
+								 >
+							</div>
+							<div class="input-field col s12">
+								<input type="text" formControlName="url"
+								 [(ngModel)]="exerciseService.selectedExercise.url"
+								 placeholder="URL"
+								 >
+							</div>
+							<div class="input-field col s12 ">
+								<select id ="myActselect" formControlName="active"
+								[(ngModel)]="exerciseService.selectedExercise.active"
+								>
+								  <option value="" disabled selected>Choose your option</option>
+								  <option value="true">True</option>
+								  <option value="false">False</option>
+								</select>
+								<label>Active* {{ exerciseService.selectedExercise.active }}</label>
+							</div>
+
+							<div class="card-action">
+								<div class="input-field col s12">
+									<button type="button" class="btn right" (click) = "resetForm(form1)"
+									 *ngIf= "editmode == false"
+									>
+										Clean
+									</button>
+									<button type="button" class="btn right" (click) = "resetForm(form1)"
+									 *ngIf= "editmode == true"
+									>
+										Cancel
+									</button>
+									<button type="button" type="" class="btn right amber" (click) = "createExercise(form1)"
+									 *ngIf= "editmode == false"
+									 style="margin-right: 2px;">
+										Create
+								   </button>
+								   <button type="button" type="" class="btn right"
+								     *ngIf= "editmode == true"
+								     (click) = "updateExercise(form1)"
+									 style="margin-right: 2px;">
+										Update
+								   </button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col s7">
+			<table class="responsive-table">
+				<thead>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Active</th>
+					<th>Operations</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let exercise of exerciseService.exercises">
+						<td>{{ exercise.name }}</td>
+						<td>{{ exercise.description }}</td>
+						<td>{{ exercise.active }}</td>
+						<td>
+							<a (click) ="editExercise(exercise)">
+								<i class="material-icons">edit</i>
+							</a>
+							<a (click) ="deleteExercise(exercise._id)">
+								<i class="material-icons icon-pink">delete</i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,23 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
+<div class="row">
+	<div class="divFlex">
+		<p class="flow-text grey-text">	{{exercise.name}}</p>
+	</div>
+	<div class="col s12 m7">
+		<div class="container">
+			<div class="card">
+				<div class="card-image">
+					<div class="video-container">
+						<iframe width="853" height="480" [src]="exercise.url  | domseguro:'https://www.youtube.com/embed/'" frameborder="0" allowfullscreen></iframe>
+					  </div>
+				</div>
+				<div class="card-content">
+				  	<p class="flow-text"> <b> Description: </b> {{ exercise.description }}</p>
+				  	<p class="flow-text"> <b> Quantity: </b> {{ exercise.quantity }}</p>
+					<p class="flow-text"> <b> Repetitions: </b> {{ exercise.repetitions }}</p>
+				</div>
+			  </div>
+		</div>
+    </div>
+  </div>
+

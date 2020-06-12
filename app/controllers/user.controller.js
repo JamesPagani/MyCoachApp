@@ -1,8 +1,8 @@
 const User = require('../models/user.model');
-const uuid = require('uuid');
+// const uuid = require('uuid');
 
 // Create a new User
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   /* if (!req.body.name) {
     return res.status(400).send({
@@ -10,26 +10,15 @@ exports.create = (req, res) => {
     });
   } */
 
-  const user = new User({
-    id: uuid.v4(),
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    mobile_phone: req.body.mobile_phone,
-    comments: req.body.comments,
-    role: req.body.role,
-    customers: [req.body.customers],
-    measures: { age: req.body.age, weight: req.body.weight, height: req.body.height },
-    objectives: req.body.objectives,
-    parentId: req.body.parentId,
-    active: 1
-  });
+  const user = new User(req.body);
 
-  user.save()
+  await user.save()
     .then(data => {
+      // console.log(data);
       res.send(data);
     })
     .catch(err => {
+      // console.log(req.body);
       res.status(500).send({
         message: err.message || 'Some error occurred while creating the User'
       });
@@ -37,8 +26,12 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all the users
-exports.findAll = (req, res) => {
-  User.find()
+exports.findAll = async (req, res) => {
+  await User.find()
+    .populate({ path: 'customers', select: 'name' })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v')
     .then(users => {
       res.send(users);
     })
@@ -50,12 +43,16 @@ exports.findAll = (req, res) => {
 };
 
 // Retrieve a user by id
-exports.findOne = (req, res) => {
-  User.findOne({ id: req.params.userId })
+exports.findOne = async (req, res) => {
+  await User.findById(req.params.id)
+    .populate({ path: 'customers', select: 'name' })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v')
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send(user);
@@ -63,44 +60,90 @@ exports.findOne = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Error retrieving user with id ' + req.params.userId
+        message: 'Error retrieving user with id ' + req.params.id
+      });
+    });
+};
+
+/*
+  findCustomers: method to retrieve customer by coach
+  Params: id (UserId String)
+*/
+exports.findCustomers = async (req, res) => {
+  await User.find({ parentId: req.params.id })
+    .populate({ path: 'parentId', select: 'name' })
+    .populate({ path: 'routines', select: 'name' })
+    .select('-createdAt -updatedAt -__v -customers ')
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'Customers not found with id ' + req.params.id
+        });
+      }
+      res.send(user);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Customers not found with id ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving customers with id ' + req.params.id
+      });
+    });
+};
+
+/*
+  findRoutinesByCustomer: method to retrieve customer by coach
+  Params: id (UserId String)
+*/
+exports.findRoutinesByCustomer = async (req, res) => {
+  await User.findById(req.params.id)
+    .populate({
+      path: 'routines',
+      select: '-createdAt -updatedAt -__v -coach',
+      populate: {
+        path: 'exercises',
+        select: '-__v -coach'
+      }
+    })
+    .select('routines -_id')
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'Routines not found with UserId ' + req.params.id
+        });
+      }
+      res.send(user.routines);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Routines not found with UserId ' + req.params.id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving routines with UserId ' + req.params.id
       });
     });
 };
 
 // Update a user by id
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   // Need validate the request data here!!
-
-  User.findOneAndUpdate(
-    {
-      id: req.params.userId
-    },
-    {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      mobile_phone: req.body.mobile_phone,
-      comments: req.body.comments,
-      role: req.body.role,
-      customers: [req.body.customers],
-      measures: { age: req.body.age, weight: req.body.weight, height: req.body.height },
-      objectives: req.body.objectives,
-      parentId: req.body.parentId,
-      active: req.body.active
-    },
-    {
-      new: true
-    }
-  )
+  const { id } = req.params;
+  const user = req.body;
+  // res.json({status: 'User Updated'});
+  await User.findByIdAndUpdate(id, { $set: user }, { new: true, omitUndefined: true })
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send(user);
@@ -108,33 +151,33 @@ exports.update = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Error updating user with id ' + req.params.userId
+        message: 'Error updating user with id ' + req.params.id
       });
     });
 };
 
 // Delete a user by id
-exports.delete = (req, res) => {
-  User.findByIdAndRemove(req.params.userId)
-    .then(note => {
-      if (!note) {
+exports.delete = async (req, res) => {
+  await User.findByIdAndRemove(req.params.id)
+    .then(user => {
+      if (!user) {
         return res.status(404).send({
-          message: 'User not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       res.send({ message: 'User deleted successfully' });
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Note not found with id ' + req.params.userId
+          message: 'User not found with id ' + req.params.id
         });
       }
       return res.status(500).send({
-        message: 'Could not delete note with id ' + req.params.userId
+        message: 'Could not delete user with id ' + req.params.id
       });
     });
 };
