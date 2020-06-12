@@ -6,16 +6,17 @@ import { Exercise } from 'src/app/models/exercise';
 declare var $:any;
 declare var M:any;
 
+
 @Component({
-  selector: 'app-exercises',
-  templateUrl: './exercises.component.html',
-  styleUrls: ['./exercises.component.css']
+  selector: 'app-exercises-coach',
+  templateUrl: './exercises-coach.component.html',
+  styleUrls: ['./exercises-coach.component.css']
 })
-export class ExercisesComponent implements OnInit {
+export class ExercisesCoachComponent implements OnInit {
 
   public editmode: boolean = false;
   form1: FormGroup;
-  public title:string ="Exercises";
+  public title:string = "Exercise Management";
 
   constructor(public exerciseService:ExerciseService) {
     this.form1 = new FormGroup ({
@@ -23,16 +24,9 @@ export class ExercisesComponent implements OnInit {
       'description': new FormControl(''),
       'quantity': new FormControl(1),
       'repetitions': new FormControl(1),
-      'url': new FormControl(''),
-      'active': new FormControl(true)
+      'url': new FormControl('')
     });
     this.getExercises();
-    /*
-    In case ngmodel is deprecated use this example
-    this.form1.get("name").valueChanges.subscribe(x => {
-      this.exerciseService.selectedExercise.name = x;
-      console.log(this.exerciseService.selectedExercise);
-    });*/
    }
 
   ngOnInit(): void {
@@ -48,7 +42,7 @@ export class ExercisesComponent implements OnInit {
     if (form.valid == true){
       if (this.exerciseService.selectedExercise._id == ''
       || this.exerciseService.selectedExercise._id == undefined){
-        form.value.active = form.value.active == 'true' ||  form.value.active === true ? true : false;
+        form.value.active = true;
         this.exerciseService.postExercise(form.value).subscribe(res => {
           M.toast({html: 'Save Successfuly'});
           this.resetForm(form);
@@ -64,7 +58,7 @@ export class ExercisesComponent implements OnInit {
       if (this.exerciseService.selectedExercise._id != ''
       && this.exerciseService.selectedExercise._id != undefined){
         form.value._id = this.exerciseService.selectedExercise._id;
-        form.value.active = form.value.active == 'true' ||  form.value.active === true ? true : false;
+        form.value.active = this.exerciseService.selectedExercise.active;
         this.exerciseService.putExercise(form.value).subscribe(res =>{
           M.toast({html: 'Update Successfuly'});
           this.getExercises();
@@ -113,11 +107,11 @@ export class ExercisesComponent implements OnInit {
     10);
   }
 
-  //delete one Exercise by document id
-  deleteExercise(_id:string){
-    console.log(_id);
+  // delete one Exercise by document ID
+  fakeDeleteExercise(exercise:Exercise){
     if(confirm('Are you sure, that you want to delete it')){
-      this.exerciseService.deleteExercise(_id).subscribe( res => {
+      exercise.active = false;
+      this.exerciseService.putExercise(exercise).subscribe( res => {
         this.resetForm(this.form1);
         this.getExercises();
         M.toast({html: 'Exercise deleted successfully'});

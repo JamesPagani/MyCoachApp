@@ -1,0 +1,133 @@
+<app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
+<div class="container">
+	<div class="row">
+		<div class="col s5">
+			<div class="card">
+				<div class="card-content">
+					<label for=""> {{ routineService.selectedRoutine._id }}</label>
+					<form [formGroup]="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<input type="text" formControlName="name"	
+								 [(ngModel)]="routineService.selectedRoutine.name"
+								 placeholder="Name*"
+								 autofocus
+								 >
+							</div>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="monday" ngModel
+									  [(ngModel)]="routineService.selectedRoutine.days.monday"
+									  />
+									<span>Monday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="tuesday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.tuesday"/>
+									<span>Tuesday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="wednesday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.wednesday"/>
+									<span>Wednesday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="thursday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.thursday"/>
+									<span>Thursday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="friday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.friday"/>
+									<span>Friday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="saturday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.saturday"/>
+									<span>Saturday</span>
+								</label>
+							</p>
+							<p formGroupName="days">
+								<label>
+									<input type="checkbox"
+									formControlName="sunday" ngModel
+								 	 [(ngModel)]="routineService.selectedRoutine.days.sunday"/>
+									<span>Sunday</span>
+								</label>
+							</p>
+
+							<div class="card-action">
+								<div class="input-field col s12">
+									<button type="button" class="btn right" (click) = "resetForm(form1)"
+									 *ngIf= "editmode == false"
+									>
+										Clean
+									</button>
+									<button type="button" class="btn right" (click) = "resetForm(form1)"
+									 *ngIf= "editmode == true"
+									>
+										Cancel
+									</button>
+									<button type="button" type="" class="btn right amber" (click) = "createRoutine(form1)"
+									 *ngIf= "editmode == false"
+									 style="margin-right: 2px;">
+										Create
+								   </button>
+								   <button type="button" type="" class="btn right"
+								     *ngIf= "editmode == true"
+								     (click) = "updateRoutine(form1)"
+									 style="margin-right: 2px;">
+										Update
+								   </button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col s7">
+			<table class="responsive-table">
+				<thead>
+					<th>Name</th>
+					<th>Coach Id</th>
+					<th>Active</th>
+					<th>Operations</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let routine of routineService.routines">
+						<ng-container *ngIf="routine.active == true">
+						<td>{{ routine.name }}</td>
+						<td>{{ routine.coach }}</td>
+						<td>{{ routine.active }}</td>
+						<td>
+							<a (click) ="editRoutine(routine)">
+								<i class="material-icons">edit</i>
+							</a>
+							<a (click) ="fakeDeleteRoutine(routine)">
+								<i class="material-icons icon-pink">delete</i>
+							</a>
+						</td>
+						</ng-container>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -26,6 +26,10 @@ export class ExerciseService {
     return this.http.get(this.URL_API + `/${_id}`);
   }
 
+  getExerciseByUser (_id: string) {
+    return this.http.get(this.URL_API + '/users' +  `/${_id}`);
+  }
+
   postExercise (exercise: Exercise) {
     return this.http.post(this.URL_API, exercise);
   }

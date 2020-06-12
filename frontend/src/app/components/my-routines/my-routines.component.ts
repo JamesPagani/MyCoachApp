@@ -8,8 +8,8 @@ import { Routine } from 'src/app/models/routine';
   styleUrls: ['./my-routines.component.css']
 })
 export class MyRoutinesComponent implements OnInit {
-
-  public title:string ="My Routines";
+  public myself = {_id: '', username: '', name:'', token:''};
+  public title:string = "All Routines";
 
   constructor(public routineService:RoutineService) {
     this.getRoutines();

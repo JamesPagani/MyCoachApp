@@ -18,6 +18,12 @@ import { MyNavMenuComponent } from './components/shared/my-nav-menu/my-nav-menu.
 import { KeyvaluePipe } from './pipes/keyvalue.pipe';
 import { ExerciseDetailComponent } from './components/exercise-detail/exercise-detail.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { ExercisesListCoachComponent } from './components/exercises-list-coach/exercises-list-coach.component';
+import { RoutinesListCoachComponent } from './components/routines-list-coach/routines-list-coach.component';
+import { RoutinesListTraineeComponent } from './components/routines-list-trainee/routines-list-trainee.component';
+import { AJoinRoutineExerciseComponent } from './components/a-join-routine-exercise/a-join-routine-exercise.component';
+import { RoutinesCoachComponent } from './components/routines-coach/routines-coach.component';
+import { ExercisesCoachComponent } from './components/exercises-coach/exercises-coach.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,13 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
     MyNavMenuComponent,
     KeyvaluePipe,
     ExerciseDetailComponent,
-    DomseguroPipe
+    DomseguroPipe,
+    ExercisesListCoachComponent,
+    RoutinesListCoachComponent,
+    RoutinesListTraineeComponent,
+    AJoinRoutineExerciseComponent,
+    RoutinesCoachComponent,
+    ExercisesCoachComponent
   ],
   imports: [
     BrowserModule,

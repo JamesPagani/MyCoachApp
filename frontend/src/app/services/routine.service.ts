@@ -18,8 +18,13 @@ export class RoutineService {
     console.log(this.selectedRoutine);
    }
 
-   getRoutines () {
+  getRoutines () {
     return this.http.get(this.URL_API);
+  }
+
+  // Retrieve a Routine by Coach ID(coach)
+  getRoutinesByCoach (_idCoach: string) {
+    return this.http.get(this.URL_API+ '/users' + `/${_idCoach}`);
   }
 
   postRoutine (routine: Routine) {
