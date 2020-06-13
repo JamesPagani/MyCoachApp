@@ -15,15 +15,21 @@ import { RegisterComponent } from './components/register/register.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { MyRoutinesComponent } from './components/my-routines/my-routines.component';
 import { MyNavMenuComponent } from './components/shared/my-nav-menu/my-nav-menu.component';
-import { KeyvaluePipe } from './pipes/keyvalue.pipe';
 import { ExerciseDetailComponent } from './components/exercise-detail/exercise-detail.component';
-import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { ExercisesListCoachComponent } from './components/exercises-list-coach/exercises-list-coach.component';
 import { RoutinesListCoachComponent } from './components/routines-list-coach/routines-list-coach.component';
 import { RoutinesListTraineeComponent } from './components/routines-list-trainee/routines-list-trainee.component';
 import { AJoinRoutineExerciseComponent } from './components/a-join-routine-exercise/a-join-routine-exercise.component';
 import { RoutinesCoachComponent } from './components/routines-coach/routines-coach.component';
 import { ExercisesCoachComponent } from './components/exercises-coach/exercises-coach.component';
+import { AuthService } from "./services/auth.service";
+
+// pipes
+import { KeyvaluePipe } from './pipes/keyvalue.pipe';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
+
+// Guards
+import { AuthGuard } from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -54,7 +60,7 @@ import { ExercisesCoachComponent } from './components/exercises-coach/exercises-
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

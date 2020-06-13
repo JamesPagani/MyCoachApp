@@ -27,12 +27,6 @@ export class ExercisesComponent implements OnInit {
       'active': new FormControl(true)
     });
     this.getExercises();
-    /*
-    In case ngmodel is deprecated use this example
-    this.form1.get("name").valueChanges.subscribe(x => {
-      this.exerciseService.selectedExercise.name = x;
-      console.log(this.exerciseService.selectedExercise);
-    });*/
    }
 
   ngOnInit(): void {
@@ -115,7 +109,6 @@ export class ExercisesComponent implements OnInit {
 
   //delete one Exercise by document id
   deleteExercise(_id:string){
-    console.log(_id);
     if(confirm('Are you sure, that you want to delete it')){
       this.exerciseService.deleteExercise(_id).subscribe( res => {
         this.resetForm(this.form1);

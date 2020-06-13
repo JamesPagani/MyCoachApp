@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from "../../services/exercise.service"; 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Exercise } from 'src/app/models/exercise';
+import { MyUser } from "../../models/my-user";
 
 declare var $:any;
 declare var M:any;
@@ -13,12 +14,13 @@ declare var M:any;
   styleUrls: ['./exercises-coach.component.css']
 })
 export class ExercisesCoachComponent implements OnInit {
-
+  public myself:MyUser;
   public editmode: boolean = false;
   form1: FormGroup;
   public title:string = "Exercise Management";
 
   constructor(public exerciseService:ExerciseService) {
+    this.myself = JSON.parse(localStorage.getItem('myself'));
     this.form1 = new FormGroup ({
       'name': new FormControl('', Validators.required),
       'description': new FormControl(''),
@@ -73,7 +75,7 @@ export class ExercisesCoachComponent implements OnInit {
 
   // get all Exercises
   getExercises(){
-    this.exerciseService.getExercises().subscribe(res =>{
+    this.exerciseService.getExerciseByUser(this.myself._id).subscribe(res =>{
       this.exerciseService.exercises = res as Exercise[];
     });
   }

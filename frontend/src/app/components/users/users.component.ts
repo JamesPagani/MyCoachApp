@@ -29,15 +29,12 @@ export class UsersComponent implements OnInit {
 
   // Create new User
   createUser(form?:NgForm){
-    console.log(form.value);
     if (form.valid == true){
       if (this.userService.selectedUser._id == ''
       || this.userService.selectedUser._id == undefined){
-        console.log("antes", form.value.active);
         form.value.active = form.value.active == 'true' || form.value.active == true ? true : false;
         form.value.parentId == '' ? delete form.value.parentId : form.value.parentId;
         form.value.mobile_phone == '' ? delete form.value.mobile_phone : form.value.mobile_phone;
-        console.log("despues", form.value.active);
         this.userService.postUser(form.value).subscribe(res => {
           M.toast({html: 'Save Successfuly'});
           this.resetForm(form);

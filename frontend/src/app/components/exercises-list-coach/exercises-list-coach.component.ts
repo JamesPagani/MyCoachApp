@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from "../../services/exercise.service"; 
 import { Exercise } from 'src/app/models/exercise';
+import { MyUser } from "../../models/my-user";
 
 @Component({
   selector: 'app-exercises-list-coach',
@@ -9,10 +10,11 @@ import { Exercise } from 'src/app/models/exercise';
 })
 export class ExercisesListCoachComponent implements OnInit {
 
-  public myself = {_id: '', username: '', name:'', token:'', rol:''};
+  public myself:MyUser;
   public title:string = "My Exercises";
 
   constructor(public exerciseService:ExerciseService) {
+    this.myself = JSON.parse(localStorage.getItem('myself'));
     this.getExercises();
    }
 

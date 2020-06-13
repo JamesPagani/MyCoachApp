@@ -12,9 +12,7 @@ export class UserService {
   readonly URL_API = 'http://localhost:3000/api/v1/users'
 
   constructor(private http:HttpClient) {
-    console.log("user service ON");
     this.selectedUser = new User();
-    console.log(this.selectedUser);
   }
   
   getUsers () {

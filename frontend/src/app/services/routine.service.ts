@@ -13,9 +13,7 @@ export class RoutineService {
   readonly URL_API = 'http://localhost:3000/api/v1/routines'
 
   constructor(private http:HttpClient) {
-    console.log("Routine service ON");
     this.selectedRoutine = new Routine();
-    console.log(this.selectedRoutine);
    }
 
   getRoutines () {
