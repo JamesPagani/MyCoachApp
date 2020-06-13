@@ -9,7 +9,7 @@ import { Routine } from 'src/app/models/routine';
 })
 
 export class RoutinesListTraineeComponent implements OnInit {
-  public myself = {_id: '', username: '', name:'', token:''};
+  public myself = {_id: '', username: '', name:'', role:''};
   public title:string = "My Routines";
   public routines: Routine[];
 

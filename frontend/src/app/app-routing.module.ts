@@ -16,21 +16,23 @@ import { AJoinRoutineExerciseComponent } from './components/a-join-routine-exerc
 import { RoutinesCoachComponent } from './components/routines-coach/routines-coach.component';
 import { ExercisesCoachComponent } from './components/exercises-coach/exercises-coach.component';
 
+import { AuthGuard } from "./guards/auth.guard";
+
 const ROUTES: Routes = [
 	{ path: 'home', component: HomeComponent },
-	{ path: 'admin/users', component: UsersComponent },
-	{ path: 'admin/routines', component: RoutinesComponent },
-	{ path: 'admin/exercises', component: ExercisesComponent },
-	{ path: 'admin/routine-list', component: MyRoutinesComponent },
-	{ path: 'login', component: LoginComponent },
-	{ path: 'register', component: RegisterComponent },
-	{ path: 'edit-profile', component: EditProfileComponent },
-	{ path: 'exercise-detail/:id', component: ExerciseDetailComponent },
-	{ path: 'coach/routine-list', component: RoutinesListCoachComponent },
-	{ path: 'coach/exercise-list', component: ExercisesListCoachComponent },
-	{ path: 'coach/routines', component: RoutinesCoachComponent },
-	{ path: 'coach/exercises', component: ExercisesCoachComponent },
-	{ path: 'trainee/routine-list', component: RoutinesListTraineeComponent },
+	{ path: 'admin/users', component: UsersComponent, canActivate:[AuthGuard] },
+	{ path: 'admin/routines', component: RoutinesComponent, canActivate:[AuthGuard] },
+	{ path: 'admin/exercises', component: ExercisesComponent, canActivate:[AuthGuard] },
+	{ path: 'admin/routine-list', component: MyRoutinesComponent, canActivate:[AuthGuard] },
+	{ path: 'login', component: LoginComponent, canActivate:[AuthGuard] },
+	{ path: 'register', component: RegisterComponent, canActivate:[AuthGuard] },
+	{ path: 'edit-profile', component: EditProfileComponent, canActivate:[AuthGuard] },
+	{ path: 'exercise-detail/:id', component: ExerciseDetailComponent, canActivate:[AuthGuard] },
+	{ path: 'coach/routine-list', component: RoutinesListCoachComponent, canActivate:[AuthGuard] },
+	{ path: 'coach/exercise-list', component: ExercisesListCoachComponent, canActivate:[AuthGuard] },
+	{ path: 'coach/routines', component: RoutinesCoachComponent, canActivate:[AuthGuard] },
+	{ path: 'coach/exercises', component: ExercisesCoachComponent, canActivate:[AuthGuard] },
+	{ path: 'trainee/routine-list', component: RoutinesListTraineeComponent, canActivate:[AuthGuard] },
 	{ path: '',   redirectTo: 'home', pathMatch: 'full' },
 	{ path: '**', component: HomeComponent }
   ];

@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 declare var $:any;
-declare var M:any;
 
 @Component({
   selector: 'app-my-nav-menu',
   templateUrl: './my-nav-menu.component.html',
   styleUrls: ['./my-nav-menu.component.css']
-})
+})  
 export class MyNavMenuComponent implements OnInit {
 
   @Input() titlePage: string = '';
 
-  constructor() {
+  constructor(public authService: AuthService,) {
     $(document).ready(function(){
       $('.sidenav').sidenav();
     });

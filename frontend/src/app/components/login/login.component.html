@@ -1,2 +1,33 @@
 <app-my-nav-menu [titlePage]="title"></app-my-nav-menu>
-<p>login works!</p>
+<div class="container">
+	<div class="row">
+		<div class="col s12 m5">
+			<div class="card">
+				<div class="card-content">
+					<form #userForm="ngForm">
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">email</i>
+								<input type="email" name="email" ngModel
+								 placeholder="Email*"
+								 required
+								 >
+							</div>
+							<div class="input-field col s12">
+								<i class="material-icons prefix">vpn_key</i>
+								<input type="password" name="password" ngModel
+								 placeholder="Password*"
+								 required
+								 >
+							</div>
+							<button class="btn right amber" (click) = "signIn(userForm)"
+							style="margin-right: 2px;">
+										Sign-In
+							 </button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

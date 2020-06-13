@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 // const uuid = require('uuid');
 
 // Create a new User
@@ -180,4 +181,43 @@ exports.delete = async (req, res) => {
         message: 'Could not delete user with id ' + req.params.id
       });
     });
+};
+
+// Create a new User but with Token
+exports.signUp = async (req, res) => {
+  const user = new User(req.body);
+  console.log(user);
+  console.log("try signUp ");
+  await user.save()
+    .then(data => {
+
+      // generate a token with the info
+      const token = jwt.sign(
+        {_id: user._id, username: user.email, name: user.name, role: user.role},
+        'secretkey'
+        );
+      res.status(200).json({token});
+    })
+    .catch(err => {
+      // console.log(req.body);
+      res.status(500).send({
+        message: err.message || 'Some error occurred while creating the User'
+      });
+    });
+};
+
+// get token for login
+exports.signIn = async (req, res) => {
+
+  const {email, password} = req.body;
+  const user = await User.findOne({ email: email });
+
+  if (!user) return res.status(401).send("The email doesn't exist");
+  if (user.password !== password) return res.status(401).send('wrong Password');
+
+  // generate a token with the info
+  const token = jwt.sign({_id: user._id, username: user.email, name: user.name,
+    role: user.role}, 'secretkey');
+  
+  return res.status(200).json({token});
 };
