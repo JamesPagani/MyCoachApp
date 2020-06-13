@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoutineService } from "../../services/routine.service"; 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Routine } from 'src/app/models/routine';
+import { MyUser } from "../../models/my-user";
 
 declare var $:any;
 declare var M:any;
@@ -12,12 +13,13 @@ declare var M:any;
   styleUrls: ['./routines-coach.component.css']
 })
 export class RoutinesCoachComponent implements OnInit {
-  public myself = {_id: '5ee1bd4999a8770b3cd1c099', username: '', name:'', token:''};
+  public myself:MyUser;
   public editmode: boolean = false;
   public title:string = "Routine Management";
   form1: FormGroup;
 
   constructor(public routineService:RoutineService) {
+    this.myself = JSON.parse(localStorage.getItem('myself'));
     this.form1 = new FormGroup ({
       'name': new FormControl('', Validators.required),
       'days': new FormGroup({
@@ -46,7 +48,6 @@ export class RoutinesCoachComponent implements OnInit {
       || this.routineService.selectedRoutine._id == undefined){
         form.value.coach = this.myself._id;
         form.value.active = true;
-        console.log(form.value);
 
         this.routineService.postRoutine(form.value).subscribe(res => {
           M.toast({html: 'Save Successfuly'});
@@ -79,7 +80,7 @@ export class RoutinesCoachComponent implements OnInit {
 
   // get all Routines
   getRoutines(){
-    this.routineService.getRoutines().subscribe(res =>{
+    this.routineService.getRoutinesByCoach(this.myself._id).subscribe(res =>{
       let r = res as Routine[];
       r.map( (x:any)=>{ 
         if( x.coach?._id != undefined){

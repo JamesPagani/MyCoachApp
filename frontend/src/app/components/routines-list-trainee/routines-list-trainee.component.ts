@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Routine } from 'src/app/models/routine';
+import { MyUser } from "../../models/my-user";
 
 @Component({
   selector: 'app-routines-list-trainee',
@@ -9,11 +10,12 @@ import { Routine } from 'src/app/models/routine';
 })
 
 export class RoutinesListTraineeComponent implements OnInit {
-  public myself = {_id: '', username: '', name:'', role:''};
+  public myself:MyUser;
   public title:string = "My Routines";
   public routines: Routine[];
 
   constructor(public userService:UserService) {
+    this.myself = JSON.parse(localStorage.getItem('myself'));
     this.getRoutines();
    }
 

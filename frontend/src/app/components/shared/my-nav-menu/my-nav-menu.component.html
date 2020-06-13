@@ -5,6 +5,21 @@
 	  </div>
 	  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 	  <ul class="right hide-on-med-and-down">
+		  <ng-container *ngIf= "myself.role == 'Trainee'">
+			<li><a [routerLink] ="['/trainee/routine-list']">My Routines</a></li> 
+		  </ng-container>
+		  <ng-container *ngIf= "myself.role == 'Coach'">
+			<li><a [routerLink] ="['/coach/routine-list']">Routine list</a></li>
+			<li><a [routerLink] ="['/coach/exercise-list']">Exercise list</a></li>
+			<li><a [routerLink] ="['/coach/routines']">Routine Management</a></li>
+			<li><a [routerLink] ="['/coach/exercises']">Exercise Management</a></li>
+		  </ng-container>
+		  <ng-container *ngIf= "myself.role == 'Admin'">
+			<li><a [routerLink] ="['/admin/users']">User Management</a></li>
+			<li><a [routerLink] ="['/admin/routines']">Rutinas Management</a></li>
+			<li><a [routerLink] ="['/admin/exercises']">Exercises Management</a></li>
+			<li><a [routerLink] ="['/admin/routine-list']">Routine list</a></li>
+		  </ng-container>
 		  <ng-container *ngIf= "!authService.loggedIn() else loggedIn">
 			<li><a [routerLink] ="['/login']">Login</a></li>
 			<li><a [routerLink] ="['/register']">Register</a></li> 
@@ -22,11 +37,26 @@
 
   
 <ul class="sidenav" id="mobile-demo">
+	<ng-container *ngIf= "myself.role == 'Trainee'">
+		<li><a [routerLink] ="['/trainee/routine-list']">My Routines</a></li> 
+	</ng-container>
+	<ng-container *ngIf= "myself.role == 'Coach'">
+		<li><a [routerLink] ="['/coach/routine-list']">Routine list</a></li>
+		<li><a [routerLink] ="['/coach/exercise-list']">Exercise list</a></li>
+		<li><a [routerLink] ="['/coach/routines']">Routine Management</a></li>
+		<li><a [routerLink] ="['/coach/exercises']">Exercise Management</a></li>
+	</ng-container>
+	<ng-container *ngIf= "myself.role == 'Admin'">
+		<li><a [routerLink] ="['/admin/users']">User Management</a></li>
+		<li><a [routerLink] ="['/admin/routines']">Rutinas Management</a></li>
+		<li><a [routerLink] ="['/admin/exercises']">Exercises Management</a></li>
+		<li><a [routerLink] ="['/admin/routine-list']">Routine list</a></li>
+	</ng-container>
 	<ng-container *ngIf= "!authService.loggedIn() else loggedIn2">
 		<li><a [routerLink] ="['/login']">Login</a></li>
 		<li><a [routerLink] ="['/register']">Register</a></li>
 	</ng-container>
 	<ng-template #loggedIn2>
-		<li><a (click) = "authService.logOut()">Logout</a></li> 
+		<li><a (click) = "authService.logOut()">Logout</a></li>
 	  </ng-template>
 </ul>

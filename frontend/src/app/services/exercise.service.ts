@@ -13,9 +13,7 @@ export class ExerciseService {
   readonly URL_API = 'http://localhost:3000/api/v1/exercises'
 
   constructor(private http:HttpClient) {
-    console.log("Exercise service ON");
     this.selectedExercise = new Exercise();
-    console.log(this.selectedExercise);
    }
 
   getExercises () {

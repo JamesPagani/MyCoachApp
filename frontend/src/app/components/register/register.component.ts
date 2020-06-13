@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from "@angular/router";
+import * as JWT from 'jwt-decode';
 
 declare var $:any;
 declare var M:any;
@@ -32,12 +33,24 @@ export class RegisterComponent implements OnInit {
       form.value.active = true;
       this.authService.signUp(form.value).subscribe(
         res => {
-          console.log(res);
           localStorage.setItem('token', res.token);
+          const token  = localStorage.getItem('token');
+          let decoded = JWT(token);
+          delete decoded.iat;
+          let role = decoded.role;
+          localStorage.setItem('myself', JSON.stringify(decoded));
           M.toast({html: 'Save Successfuly'});
-          this.router.navigate(['/trainee/routine-list']);
+
+          if ( role == 'Trainee'){
+            this.router.navigate(['/trainee/routine-list']);
+          }else if(role == 'Coach'){
+            this.router.navigate(['coach/routine-list']);
+          }else{
+            this.router.navigate(['/admin/routine-list']);
+          }
+          
         },
-        err =>  M.toast({html: 'Save Successfuly'})
+        err =>  M.toast({html: 'Register Error'})
       );
      
     }else{

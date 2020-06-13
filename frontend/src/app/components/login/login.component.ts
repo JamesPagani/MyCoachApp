@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from "@angular/router";
+import * as JWT from 'jwt-decode';
 
 declare var M:any;
 
@@ -11,7 +12,7 @@ declare var M:any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public myself = {_id: '', username: '', name:'', role:''};
+
   public title:string ="Login";
 
   constructor(
@@ -27,15 +28,23 @@ export class LoginComponent implements OnInit {
     if (form.valid == true){
       this.authService.signIn(form.value).subscribe(
         res => {
-          console.log(res);
           localStorage.setItem('token', res.token);
-          M.toast({html: 'Login Successfuly'});
+          const token  = localStorage.getItem('token');
+          let decoded = JWT(token);
+          delete decoded.iat;
+          let role = decoded.role;
+          localStorage.setItem('myself', JSON.stringify(decoded));
+          M.toast({html: 'Login Successfuly'}); 
           this.router.navigate(['/home']);
+          if ( role == 'Trainee'){
+            this.router.navigate(['/trainee/routine-list']);
+          }else if(role == 'Coach'){
+            this.router.navigate(['coach/routine-list']);
+          }else{
+            this.router.navigate(['/admin/routine-list']);
+          }
         },
-        err =>  {
-          console.log(err);
-          M.toast({html: 'Login Error'})
-        }
+        err =>  M.toast({html: 'Login Error'})
       );
      
     }else{
