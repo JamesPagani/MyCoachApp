@@ -35,12 +35,14 @@ export class LoginComponent implements OnInit {
           let role = decoded.role;
           localStorage.setItem('myself', JSON.stringify(decoded));
           M.toast({html: 'Login Successfuly'}); 
-          this.router.navigate(['/home']);
           if ( role == 'Trainee'){
+            M.toast({html: 'Welcome Trainee'}); 
             this.router.navigate(['/trainee/routine-list']);
           }else if(role == 'Coach'){
+            M.toast({html: 'Welcome Coach'}); 
             this.router.navigate(['coach/routine-list']);
           }else{
+            M.toast({html: 'Welcome Admin'});
             this.router.navigate(['/admin/routine-list']);
           }
         },
