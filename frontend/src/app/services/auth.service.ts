@@ -32,4 +32,19 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  isAuthenticated(roles:string[]): boolean {
+    return (this.getCurrentRol(roles) != null) ? true : false;
+  };
+
+  getCurrentRol(roles:string[]): string {
+    let myself = JSON.parse(localStorage.getItem('myself'));
+
+    for (const rol of roles) {
+      if(myself && myself.role == rol){
+        return myself.role;
+      }
+    }
+    return  null;
+  };
+
 }

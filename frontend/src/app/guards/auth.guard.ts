@@ -14,6 +14,9 @@ export class AuthGuard implements CanActivate {
     ){}
 
   canActivate( route: ActivatedRouteSnapshot):boolean {
+
+    const roles = route.data["roles"] as Array<string>;
+
     if(this.authService.loggedIn()) {
       if (route.url[0].path == 'register' || route.url[0].path == 'login')
       {
@@ -21,12 +24,15 @@ export class AuthGuard implements CanActivate {
         return false;
       }
       else{
-        return true;
+        
+        if (this.authService.isAuthenticated(roles)) {
+          return true;  
+        }
       }
     } else {
       if (route.url[0].path == 'register' || route.url[0].path == 'login')
       {
-        return true;
+          return true;
       }
       this.router.navigate(['/home']);
       return false;
