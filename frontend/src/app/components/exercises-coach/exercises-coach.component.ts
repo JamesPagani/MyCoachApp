@@ -45,6 +45,8 @@ export class ExercisesCoachComponent implements OnInit {
       if (this.exerciseService.selectedExercise._id == ''
       || this.exerciseService.selectedExercise._id == undefined){
         form.value.active = true;
+        form.value.coach = this.myself._id;
+
         this.exerciseService.postExercise(form.value).subscribe(res => {
           M.toast({html: 'Save Successfuly'});
           this.resetForm(form);
@@ -61,6 +63,7 @@ export class ExercisesCoachComponent implements OnInit {
       && this.exerciseService.selectedExercise._id != undefined){
         form.value._id = this.exerciseService.selectedExercise._id;
         form.value.active = this.exerciseService.selectedExercise.active;
+        form.value.coach = this.myself._id;
         this.exerciseService.putExercise(form.value).subscribe(res =>{
           M.toast({html: 'Update Successfuly'});
           this.getExercises();
