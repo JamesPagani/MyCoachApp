@@ -27,7 +27,7 @@ if (process.env.NODE_ENV == 'production'){
   // server it through nginx
 }else if (process.env.NODE_ENV == 'semi_production'){
   // semi-production (without nginx)
-  app.use(express.static(path.join(__dirname, './frontend/dist/')));
+  app.use(express.static(path.join(__dirname, './frontend/dist/frontend')));
 }else{
   // dev mode
   // express will not use static files. So you will have to turn on angular
