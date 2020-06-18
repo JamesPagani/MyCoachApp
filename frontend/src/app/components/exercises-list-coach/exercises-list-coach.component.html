@@ -3,6 +3,7 @@
 	<div class="col s12 m7">
 		<div class="container">
 			<div class="card" *ngFor="let exercise of exerciseService.exercises">
+				<ng-container *ngIf="exercise.active == true">
 				<div class="card-image">
 					<div class="video-container">
 						<iframe width="853" height="480" [src]="exercise.url  | domseguro:'https://www.youtube.com/embed/'" frameborder="0" allowfullscreen></iframe>
@@ -14,6 +15,7 @@
 				  	<p class="flow-text"> <b> Quantity: </b> {{ exercise.quantity }}</p>
 					<p class="flow-text"> <b> Repetitions: </b> {{ exercise.repetitions }}</p>
 				</div>
+			    </ng-container>
 			  </div>
 		</div>
     </div>
