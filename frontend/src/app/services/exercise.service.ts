@@ -10,7 +10,7 @@ export class ExerciseService {
   selectedExercise: Exercise;
   exercises: Exercise[];
 
-  readonly URL_API = 'http://localhost:3000/api/v1/exercises'
+  readonly URL_API = '/api/v1/exercises'
 
   constructor(private http:HttpClient) {
     this.selectedExercise = new Exercise();

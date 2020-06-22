@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 })
 export class AuthService {
 
-  private readonly URL_API = 'http://localhost:3000/api/v1/'
+  private readonly URL_API = '/api/v1/'
 
   constructor(private http: HttpClient,
      private router:Router ) {}

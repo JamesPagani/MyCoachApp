@@ -10,7 +10,7 @@ export class RoutineService {
   selectedRoutine: Routine;
   routines: Routine[];
 
-  readonly URL_API = 'http://localhost:3000/api/v1/routines'
+  readonly URL_API = '/api/v1/routines'
 
   constructor(private http:HttpClient) {
     this.selectedRoutine = new Routine();

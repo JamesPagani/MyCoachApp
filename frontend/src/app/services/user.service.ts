@@ -9,7 +9,7 @@ export class UserService {
   selectedUser: User;
   users: User[];
 
-  readonly URL_API = 'http://localhost:3000/api/v1/users'
+  readonly URL_API = '/api/v1/users'
 
   constructor(private http:HttpClient) {
     this.selectedUser = new User();
