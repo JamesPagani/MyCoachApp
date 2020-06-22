@@ -8,6 +8,7 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let routine of routineService.routines" >
+				<ng-container *ngIf="routine.active == true">
 				 <td>{{ routine.name | titlecase}}</td>
 				<!-- <td>{{ routine.exercise }}</td> -->
 				<td>
@@ -25,6 +26,7 @@
 						</tr>
 					</table>
 				</td>
+				</ng-container>
 			</tr>
 		</tbody>
 	</table>

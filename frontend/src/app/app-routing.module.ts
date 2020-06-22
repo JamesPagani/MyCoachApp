@@ -33,7 +33,7 @@ const ROUTES: Routes = [
 	{ path: 'edit-profile', component: EditProfileComponent,
 		canActivate:[AuthGuard], data: {roles: ['Admin', 'Coach', 'Trainee']} },
 	{ path: 'exercise-detail/:id', component: ExerciseDetailComponent,
-		canActivate:[AuthGuard], data: {roles: ['Coach']}},
+		canActivate:[AuthGuard], data: {roles: ['Coach', 'Trainee']}},
 	{ path: 'coach/routine-list', component: RoutinesListCoachComponent,
 		canActivate:[AuthGuard], data: {roles: ['Coach']}},
 	{ path: 'coach/exercise-list', component: ExercisesListCoachComponent,
