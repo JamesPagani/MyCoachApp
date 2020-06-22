@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
- const URI = 'mongodb://mongo/mycoach';
+const URI = 'mongodb+srv://mycoach-app:TcoCmcFeIXETV8z0@cluster0-qiams.mongodb.net/mycoach?retryWrites=true&w=majority'
+//const URI = 'mongodb://mongo/mycoach';
 //const URI = 'mongdb://localhost/mycoach';
 //const URI = 'mongodb://MongoDev:MongoDev2020@localhost:27017/mycoach';
 
