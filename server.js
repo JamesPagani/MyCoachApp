@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: urlPrefix }));
 
 /* let distDir = __dirname + "/dist/";
 app.use(express.static(distDir)); */
