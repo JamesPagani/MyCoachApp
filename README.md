@@ -32,7 +32,7 @@ The site load in https://localhost:4200
 
 ### Usage
 
-The app management differents users roles (admin, coach, trainee), everyone have some features, the most important:
+The app use different users roles (admin, coach, trainee), everyone has different features, the most important:
 
 #### Management coaches and trainees roles
 How a coach, can management the information about your personal trainer services how exercises and routines to shared with your trainees.
@@ -45,7 +45,7 @@ Share the daily or weekly routine of your trainees trough a platform specialized
 
 ### Contributing
 
-This project is develop for:
+This project is develop to:
 
 Jaime Galvez [https://github.com/JamesPagani]   
 Diego Garzon [https://github.com/diesgaro]  
