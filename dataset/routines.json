@@ -1,0 +1,79 @@
+[{
+  "_id": {
+    "$oid": "5ee92f3aac6dd91cc4e37b89"
+  },
+  "exercises": [
+    {
+      "$oid": "5ee927afac6dd91cc4e37b80"
+    },
+    {
+      "$oid": "5ee9287aac6dd91cc4e37b81"
+    },
+    {
+      "$oid": "5ee9294eac6dd91cc4e37b82"
+    },
+    {
+      "$oid": "5ee92ba6ac6dd91cc4e37b85"
+    },
+    {
+      "$oid": "5ee92c93ac6dd91cc4e37b87"
+    },
+    {
+      "$oid": "5ee92cdeac6dd91cc4e37b88"
+    }
+  ],
+  "active": true,
+  "name": "Tone",
+  "days": {
+    "monday": true,
+    "tuesday": true,
+    "wednesday": false,
+    "thursday": true,
+    "friday": true,
+    "saturday": false,
+    "sunday": true
+  },
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:44:42.925Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T21:08:39.412Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92f79ac6dd91cc4e37b8a"
+  },
+  "exercises": [
+    {
+      "$oid": "5ee92aa9ac6dd91cc4e37b84"
+    },
+    {
+      "$oid": "5ee92bf7ac6dd91cc4e37b86"
+    }
+  ],
+  "active": true,
+  "name": "Martial arts classes",
+  "days": {
+    "monday": false,
+    "tuesday": false,
+    "wednesday": false,
+    "thursday": false,
+    "friday": true,
+    "saturday": true,
+    "sunday": false
+  },
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:45:45.714Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T21:12:22.584Z"
+  },
+  "__v": 0
+}]

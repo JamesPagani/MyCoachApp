@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "5ee8fda6ac6dd91cc4e37b7c"
+  },
+  "customers": [],
+  "routines": [],
+  "active": true,
+  "name": "admin",
+  "email": "admin@hotmail.com",
+  "password": "789789",
+  "role": "Admin",
+  "createdAt": {
+    "$date": "2020-06-16T17:13:10.245Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-17T17:11:25.943Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "customers": [
+    {
+      "$oid": "5ee924eaac6dd91cc4e37b7f"
+    },
+    {
+      "$oid": "5ee9234dac6dd91cc4e37b7e"
+    }
+  ],
+  "routines": [
+    {
+      "$oid": "5ee92f3aac6dd91cc4e37b89"
+    },
+    {
+      "$oid": "5ee92f79ac6dd91cc4e37b8a"
+    }
+  ],
+  "active": true,
+  "name": "Coach",
+  "email": "coach@hotmail.com",
+  "password": "456456",
+  "role": "Coach",
+  "createdAt": {
+    "$date": "2020-06-16T18:43:09.055Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T21:26:04.504Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee9234dac6dd91cc4e37b7e"
+  },
+  "customers": [],
+  "routines": [],
+  "active": true,
+  "name": "trainee",
+  "email": "trainee@hotmail.com",
+  "password": "123123",
+  "role": "Trainee",
+  "createdAt": {
+    "$date": "2020-06-16T19:53:49.809Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T19:53:49.809Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee924eaac6dd91cc4e37b7f"
+  },
+  "customers": [],
+  "routines": [
+    {
+      "$oid": "5ee92f3aac6dd91cc4e37b89"
+    }
+  ],
+  "active": true,
+  "name": "pepito",
+  "email": "pepito@hotmail.com",
+  "password": "123123",
+  "role": "Trainee",
+  "createdAt": {
+    "$date": "2020-06-16T20:00:42.825Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-17T16:21:51.449Z"
+  },
+  "__v": 0
+}]

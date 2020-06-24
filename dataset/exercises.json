@@ -1,0 +1,181 @@
+[{
+  "_id": {
+    "$oid": "5ee927afac6dd91cc4e37b80"
+  },
+  "active": true,
+  "name": "Hop Heel Clicks",
+  "description": "Jumps",
+  "quantity": 10,
+  "repetitions": 3,
+  "url": "4XcGTvcSRxY",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:12:31.664Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:12:31.664Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee9287aac6dd91cc4e37b81"
+  },
+  "active": true,
+  "name": "Half Squat Walk",
+  "description": "Squat",
+  "quantity": 5,
+  "repetitions": 10,
+  "url": "wqfRvXc7BHY",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:15:54.638Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:15:54.638Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee9294eac6dd91cc4e37b82"
+  },
+  "active": true,
+  "name": "Side Splits",
+  "description": "Stretch",
+  "quantity": 1,
+  "repetitions": 30,
+  "url": "HAQvQXovwuo",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:19:26.424Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:36:57.328Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee929c9ac6dd91cc4e37b83"
+  },
+  "active": true,
+  "name": "Side Kicks / Side-to-Side",
+  "description": "Martial arts",
+  "quantity": 5,
+  "repetitions": 2,
+  "url": "XrM3OXvYmmQ",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:21:29.607Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:21:58.086Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92aa9ac6dd91cc4e37b84"
+  },
+  "active": true,
+  "name": "Axe Kicks",
+  "description": "Martial arts",
+  "quantity": 3,
+  "repetitions": 2,
+  "url": "7mOGylDcQH4",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:25:13.120Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:25:13.120Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92ba6ac6dd91cc4e37b85"
+  },
+  "active": true,
+  "name": "Accordion Push-Ups",
+  "description": "Push-Ups",
+  "quantity": 10,
+  "repetitions": 4,
+  "url": "01xjUrLWWrk",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:29:26.200Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:29:26.200Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92bf7ac6dd91cc4e37b86"
+  },
+  "active": true,
+  "name": "Bear Crawl",
+  "description": "Martial arts",
+  "quantity": 10,
+  "repetitions": 10,
+  "url": "bfT5TaRFKQw",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:30:47.048Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:30:47.048Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92c93ac6dd91cc4e37b87"
+  },
+  "active": true,
+  "name": "Crunches",
+  "description": "Crunches",
+  "quantity": 50,
+  "repetitions": 10,
+  "url": "HiRsmHH7psA",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:33:23.297Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:33:23.297Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ee92cdeac6dd91cc4e37b88"
+  },
+  "active": true,
+  "name": "Dragon Push-Ups",
+  "description": "Push-Ups",
+  "quantity": 10,
+  "repetitions": 5,
+  "url": "sflrxv53L-o",
+  "coach": {
+    "$oid": "5ee912bdac6dd91cc4e37b7d"
+  },
+  "createdAt": {
+    "$date": "2020-06-16T20:34:38.470Z"
+  },
+  "updatedAt": {
+    "$date": "2020-06-16T20:36:02.960Z"
+  },
+  "__v": 0
+}]
