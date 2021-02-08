@@ -1,5 +1,7 @@
 # MyCoach
 ## Connecting coaches and trainees for virtual training
+<img src="https://drive.google.com/uc?export=view&id=12R-xLXRUq0O6ghuoycoEsuSMYSMQdtxR" alt="screenshot App" width="300"/>
+<img src="https://drive.google.com/uc?export=view&id=1NjDJCVXZMHoR0XNHk0s_dkgjg9LyCwnM" alt="screenshot App" width="300"/>
 
 ### What is MyCoach?
 Is a platform designed for all professionals and trainers who work in areas of body training and health.
@@ -49,7 +51,7 @@ This project is develop to:
 
 Jaime Galvez [https://github.com/JamesPagani]   
 Diego Garzon [https://github.com/diesgaro]  
-Carlos Cortez [https://github.com/kael1706]
+Carlos Cortez [https://github.com/kaelwebdev]
 
 ### Related projects
 
